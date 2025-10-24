@@ -2,6 +2,7 @@ const ApiError = require('../error/apiError')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { User, Basket } = require("../models/models")
+const { json } = require('sequelize')
 
 const generaetJwt  = (id, email, role) =>{
     return jwt.sign(
@@ -48,11 +49,7 @@ class UserController{
     }
     
     async check(req, res, next){
-        const {id} = req.query
-        if (!id){
-            return next(ApiError.badRequest("Не задан ID"));
-        }
-        res.json(id);
+        return res.json({message: "all fine"})//переписать
     }
 }
 

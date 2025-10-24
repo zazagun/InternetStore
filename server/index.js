@@ -1,7 +1,7 @@
 // стек //
 // node js
 // cors для натсройки API
-// Express node js
+// Express Js
 // Sequelize ORM для реляц. бд на js
 // JWT токен
 
@@ -12,7 +12,7 @@ const models = require('./models/models')
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
 const router = require('./router/index')
-const errorHandler = require('./error/middleware/ErrorMIddleware')
+const errorHandler = require('./mIddleware/ErrorMIddleware')
 const path = require('path')
 
 const PORT = process.env.PORT || 5000

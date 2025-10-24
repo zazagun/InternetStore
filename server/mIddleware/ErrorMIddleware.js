@@ -1,5 +1,5 @@
-const { model } = require('../../db')
-const ApiError = require('../apiError')
+const { model } = require('../db')
+const ApiError = require('../error/apiError')
 
 module.exports = function (err, req, res, next){
     if (err instanceof ApiError){
