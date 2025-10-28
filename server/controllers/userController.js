@@ -49,7 +49,12 @@ class UserController{
     }
     
     async check(req, res, next){
-        return res.json({message: "all fine"})//переписать
+        const TOKEN = generaetJwt(req.user.id, req.user.email, req.user.role)
+        if(!TOKEN){
+            return res.json({message: "something wrong"})
+        }else{
+            return res.json({message: "all fine", token: TOKEN})
+        }
     }
 }
 
