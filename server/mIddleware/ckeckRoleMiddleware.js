@@ -14,7 +14,6 @@ module.exports = function(role){
             const decoded = jwt.verify(TOKEN, process.env.SECRET_KEY)
             if(decoded.role !== role){
                 return res.status(403).json({message: "Нет доступа"})
-                
             }
             req.user = decoded
 
@@ -24,5 +23,3 @@ module.exports = function(role){
         }
     }
 }
-
-//доделать мидлвар для роли
