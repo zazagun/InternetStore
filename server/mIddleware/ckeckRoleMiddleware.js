@@ -8,7 +8,7 @@ module.exports = function(role){
         try{
             const TOKEN = req.headers.authorization.split(' ')[1]//bearer
             if(!TOKEN){
-                return res.status(401).json({message: "Пользователь не авторизован"})
+                return res.status(401).json({message: "Пользователь не авторизован!"})
             }
 
             const decoded = jwt.verify(TOKEN, process.env.SECRET_KEY)
