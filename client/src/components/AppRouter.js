@@ -1,11 +1,13 @@
 import React from "react";
 import {Switch, Route, Redirect} from 'react-router-dom'
+import {authRouts, publicRouts} from '../routs'
 
 const AppRouter = () =>{
+
     return (
-        <div>
-            <p>AppRouter</p>
-        </div>
+        <Switch>
+            authRouts.map()
+        </Switch>
     )
 }
 
