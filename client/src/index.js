@@ -8,5 +8,3 @@ root.render(
     <App />
   </React.StrictMode>
 );
-
-//1.11.34

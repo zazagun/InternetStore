@@ -1,11 +1,10 @@
-import { Component } from "react"
 import * as routes from "./utils/consts"
 
 import Admin from "./pages/Admin"
 import Basket from "./pages/Basket"
 import DevicePage from "./pages/DevicePage"
 import Auth from "./pages/Auth"
-import Shop from "./pages/shop"
+import Shop from "./pages/Shop"
 
 export const authRouts = [
     {
@@ -24,7 +23,7 @@ export const publicRouts = [
         Component: Auth
     },
     {
-        path: routes.DEVICE_ROUTE + "/id",
+        path: routes.DEVICE_ROUTE + "/:id",
         Component: DevicePage
     },
     {

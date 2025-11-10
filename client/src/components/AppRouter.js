@@ -1,17 +1,20 @@
-import React from "react";
-import {Switch, Route, Redirect} from 'react-router-dom'
-import {authRouts, publicRouts} from '../routs'
+import React from "react"
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { authRouts, publicRouts } from '../routes'
 
-const AppRouter = () =>{
-    let isAuth = false
+const AppRouter = () => {
+    const isAuth = false
     return (
-        <Switch>
-            {authRouts.map(({path, Component}) =>
-                <Route key={path} path={path} component={Component} exact/>
+        <Routes>
+            {isAuth && authRouts.map(({ path, Component }) =>
+                <Route key={path} path={path} element={<Component />} />
             )}
-        </Switch>
-    )
-
-}
+            {publicRouts.map(({ path, Component }) =>
+                <Route key={path} path={path} element={<Component />} />
+            )}
+            <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+    );
+};
 
 export default AppRouter;
