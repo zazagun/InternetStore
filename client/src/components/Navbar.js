@@ -1,23 +1,33 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Button from "react-bootstrap/Button"
-// import NavDropdown from 'react-bootstrap/NavDropdown';
+import Button from "react-bootstrap/Button";
 import { SHOP_ROUTE } from '../utils/consts';
+import { useContext } from 'react';
+import { Context } from '../index.js';
+import { observer } from 'mobx-react-lite';
 
-const NavBar = () => {
-    return (
+const NavBar = observer(() => {
+  const {user} = useContext(Context)
+  return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link to={SHOP_ROUTE}>Buy Device</Nav.Link>
-            <Nav.Link href="#pricing">Логин</Nav.Link>
+        <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-between">
+          <Nav>
+            <Nav.Link href={SHOP_ROUTE}>Buy Device</Nav.Link>
+            <Nav.Link href="#pricing">Страница</Nav.Link>
+          </Nav>
+          {user.isAuth ? 
             <Nav className='ml-auto'>
-                <Button>Авторизация</Button>
-            </Nav>
+              <Button className="me-2">Админ панель</Button>
+              <Button>Войти</Button>
+            </Nav>:
+            <Nav>
+              <Button onClick={() => user.isAut = true ()}>Авторизация</Button>
+            </Nav>//1.28.03 доделать
+          }
 
-            {/* <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
+          {/* <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 Another action
@@ -29,11 +39,10 @@ const NavBar = () => {
               </NavDropdown.Item>
             </NavDropdown> */}
 
-          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
-}
+});
 
 export default NavBar;
