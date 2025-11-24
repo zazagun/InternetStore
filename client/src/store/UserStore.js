@@ -21,5 +21,3 @@ export default class UserStore{
         return this._user
     }
 }
-
-//1.21.00
