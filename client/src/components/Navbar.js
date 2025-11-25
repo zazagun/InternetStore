@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from "react-bootstrap/Button";
-import { SHOP_ROUTE } from '../utils/consts';
+import { SHOP_ROUTE, LOGIN_ROUTE } from '../utils/consts';
 import { useContext } from 'react';
 import { Context } from '../index.js';
 import { observer } from 'mobx-react-lite';
@@ -14,17 +14,17 @@ const NavBar = observer(() => {
       <Container>
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-between">
           <Nav>
-            <Nav.Link href={SHOP_ROUTE}>Buy Device</Nav.Link>
-            <Nav.Link href="#pricing">Страница</Nav.Link>
+            <Nav.Link href={SHOP_ROUTE}>Shop page</Nav.Link>
+            <Nav.Link href="#somePage">page</Nav.Link>
           </Nav>
           {user.isAuth ? 
             <Nav className='ml-auto'>
-              <Button className="me-2">Админ панель</Button>
-              <Button>Войти</Button>
+              <Button className="me-2">Admin panel</Button>
+              <Button>Log In</Button>
             </Nav>:
-            <Nav>
-              <Button onClick={() => user.isAut = true ()}>Авторизация</Button>
-            </Nav>//1.28.03 доделать
+            <Nav.Link href={LOGIN_ROUTE}>
+              <Button>Authorization</Button>
+            </Nav.Link>//1.28.03 доделать
           }
 
           {/* <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
