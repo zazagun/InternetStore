@@ -4,7 +4,9 @@ export default class DeviceStore{
     constructor(){
         this._types = [
             {id: 1, name: "Телефоны"},
-            {id: 2, name: "Видеокарты"}
+            {id: 2, name: "Видеокарты"},
+            {id: 3, name: "Наушники"},
+            {id: 4, name: "Ноутбуки"}
         ]
         this._brands = [
             {id: 1, name: "Apple"},
