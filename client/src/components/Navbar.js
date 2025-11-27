@@ -38,7 +38,7 @@ const NavBar = observer(() => {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown> */}
-
+            
         </Navbar.Collapse>
       </Container>
     </Navbar>
