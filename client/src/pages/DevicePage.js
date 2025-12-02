@@ -11,12 +11,17 @@ const DevicePage = () =>{
     }
 
     return (
-        <Container>
+        <Container className="mt-4">
             <Col md={4}>
                 <Image src={device.img} width={300} height={300}/>
             </Col>
             <Col md={4}>
-
+                <h2>{device.name}</h2>
+                <div
+                    className="d-flex align-items-center justify-content-center"
+                >
+                    {device.rating}
+                </div>
             </Col>
             <Col md={4}>
 
