@@ -24,7 +24,7 @@ const NavBar = observer(() => {
             </Nav>:
             <Nav.Link href={LOGIN_ROUTE}>
               <Button>Authorization</Button>
-            </Nav.Link>//1.28.03 доделать
+            </Nav.Link>
           }
 
           {/* <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
