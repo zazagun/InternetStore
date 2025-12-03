@@ -1,5 +1,6 @@
 import React from "react";
-import { Container, Col, Image } from "react-bootstrap";
+import { Container, Col, Image, Row } from "react-bootstrap";
+import bigStar from "../assets/big_star.svg"
 
 const DevicePage = () =>{
     const device = {
@@ -12,20 +13,30 @@ const DevicePage = () =>{
 
     return (
         <Container className="mt-4">
-            <Col md={4}>
-                <Image src={device.img} width={300} height={300}/>
-            </Col>
-            <Col md={4}>
-                <h2>{device.name}</h2>
-                <div
-                    className="d-flex align-items-center justify-content-center"
-                >
-                    {device.rating}
-                </div>
-            </Col>
-            <Col md={4}>
+            <Row>
+                <Col md={4}>
+                    <Image src={device.img} width={300} height={300}/>
+                </Col>
 
-            </Col>
+                <Col md={4}>
+                    <Row className="d-flex flex-column align-items-center" style={{display: 'flex', alignItems: "center"}}>
+                        <h2 className="d-flex flex-column align-items-center">{device.name}</h2>
+                        <div
+                            className="d-flex align-items-center justify-content-center"
+                            style={{background: `url(${bigStar}) no-repeat center center`, width: 240, height:240, backgroundsize: "cover", fontSize: 64}}
+                        >
+                            {device.rating}
+                        </div>
+                    </Row>
+                </Col>
+
+                <Col md={4}>
+                    <Row>
+
+                    </Row>
+                </Col>
+            </Row>
+            
         </Container>
     )
 }
