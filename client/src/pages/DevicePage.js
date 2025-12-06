@@ -42,17 +42,18 @@ const DevicePage = () =>{
                         className="d-flex flex-column align-items-center justify-content-around"
                         style={{width: 300, height: 300, fontSize: 32}}
                     >
-                        <h3>{device.price}</h3>
+                        <h3>{device.price} Рубелей</h3>
                         <Button >Добавить в корзину</Button>
                     </Card>
                 </Col>
             </Row>
-            <Row>
-                {description.map(info =>
-                    <Row>
+            <Row className="d-flex flex-column m-3">
+                <h2>Характеристики</h2>
+                {description.map((info, index) =>
+                    <Row key={info.id} style={{background: index % 2 === 0 ? "#8792a0ff" : "transparent", padding: 10}}>
                         {info.title + ": " + info.description}
                     </Row>
-                )}{/*1.49.45*/}
+                )}
             </Row>
         </Container>
     )

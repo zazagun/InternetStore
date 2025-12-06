@@ -14,7 +14,7 @@ const TypeBar = observer(() => {
     };
 
     return (
-        <ListGroup>
+        <ListGroup  style={{ width: 'fit-content', marginLeft: -20}}>
             {device.types.map((type) => (
                 <ListGroup.Item
                     style={{cursor: "pointer"}}

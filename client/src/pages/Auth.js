@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from 'react-bootstrap/Card'
 import { Form, Container, Button}  from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
+import { login, registration } from "../http/userApi";
 
 const Auth = () =>{
     const location = useLocation()
-    // console.log(location)
-
     const isLogin = location.pathname === LOGIN_ROUTE
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const click = async () => {
+        if(isLogin){
+            const response = await login()
+            console.log(response)
+        }else{
+            const response = await registration(email, password)
+            console.log(response)
+        }//2.07.40
+    }
 
     return (
         <Container 
@@ -21,10 +32,15 @@ const Auth = () =>{
                     <Form.Control 
                         className = "mt-2"
                         placeholder = "Enter your email"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
                     />
                     <Form.Control 
                         className = "mt-2"
+                        type="password"
                         placeholder = "Enter your password"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
                     />
                     {isLogin ? 
                         <Button className="mt-3">
