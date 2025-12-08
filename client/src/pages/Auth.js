@@ -42,14 +42,13 @@ const Auth = () =>{
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                     />
-                    {isLogin ? 
-                        <Button className="mt-3">
-                            Log in
-                        </Button>:
-                        <Button className="mt-3">
-                            Register
-                        </Button>
-                    }
+                    
+                    <Button
+                        className="mt-3"
+                        onClick={click}
+                    >
+                        {isLogin ? "Log in" : "Register"}
+                    </Button>
                     
                     <Container className="d-flex mt-3">
                         {isLogin ? <p>
