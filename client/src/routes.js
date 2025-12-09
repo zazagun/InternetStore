@@ -1,5 +1,4 @@
 import * as routes from "./utils/consts"
-
 import Admin from "./pages/Admin"
 import Basket from "./pages/Basket"
 import DevicePage from "./pages/DevicePage"

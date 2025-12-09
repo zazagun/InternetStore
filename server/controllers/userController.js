@@ -22,7 +22,7 @@ class UserController{
 
         const candidate = await User.findOne({where: {email}})
         if (candidate){
-            return next(ApiError.badRequest("email уже зарегестрирван"))
+            return next(ApiError.badRequest("Email has already been registered"))
         }
 
         const hashPassword = await bcrypt.hash(password, 5) // (5) кол-во итераций шифрования
@@ -38,11 +38,11 @@ class UserController{
         const {email, password} = req.body
         const user = await User.findOne({where: {email}})
         if(!user){
-            return next (ApiError.internal("Не верные данные"))
+            return next (ApiError.internal("Wrong data"))
         }
         let comparePassword = bcrypt.compareSync(password, user.password)
         if(!comparePassword){
-            return next (ApiError.internal("Не верный пароль"))
+            return next (ApiError.internal("Wrong password"))
         }
         const TOKEN = generaetJwt(user.id, user.email, user.role)
         return res.json({TOKEN})

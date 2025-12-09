@@ -12,6 +12,11 @@ const NavBar = observer(() => {
   const {user} = useContext(Context)
   const navigate = useNavigate()
 
+  const logOut = () => {
+    user.setUser({})
+    user.setIsAuth(false)
+  }
+
   return (
     <Navbar bg="light" style={{ position: 'sticky', top: 0, zIndex: 1000, width: '100%' }}>
       <Container>
@@ -31,14 +36,14 @@ const NavBar = observer(() => {
               </Button>
 
               <Button 
-                onClick={() => navigate(LOGIN_ROUTE)}
+                onClick={() => logOut()}
               >
                 Log out
               </Button>
 
             </Nav>:
             <Nav.Link href={LOGIN_ROUTE}>
-              <Button /*onClick={() => user.setIsAuth(true)}*/>Authorization</Button>
+              <Button>Authorization</Button>
             </Nav.Link>
           }
             

@@ -1,24 +1,45 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Card from 'react-bootstrap/Card'
-import { Form, Container, Button}  from "react-bootstrap";
+import { Form, Container, Button, Row}  from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "../utils/consts";
 import { login, registration } from "../http/userApi";
+import { observer } from 'mobx-react-lite';
+import { Context } from "../index";
+import { useNavigate } from "react-router-dom";
 
-const Auth = () =>{
+const Auth = observer(() =>{
+    const { user } = useContext(Context)
+    const navigate = useNavigate()
     const location = useLocation()
     const isLogin = location.pathname === LOGIN_ROUTE
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState("");
 
     const click = async () => {
-        if(isLogin){
-            const response = await login()
-            console.log(response)
-        }else{
-            const response = await registration(email, password)
-            console.log(response)
-        }//2.07.40
+        try{
+            let data
+            if(isLogin){
+                data = await login(email, password)
+                console.log(data)
+
+            }else{
+                data = await registration(email, password)
+                console.log(data)
+            }
+            
+        user.setUser(user)
+        user.setIsAuth(true)
+        navigate(SHOP_ROUTE)
+
+        setEmail("")
+        setPassword("")
+        setError("")
+
+        }catch(error){
+            setError(error.response?.data?.message || "Произошла ошибка");
+        }
     }
 
     return (
@@ -42,7 +63,7 @@ const Auth = () =>{
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                     />
-                    
+
                     <Button
                         className="mt-3"
                         onClick={click}
@@ -50,11 +71,16 @@ const Auth = () =>{
                         {isLogin ? "Log in" : "Register"}
                     </Button>
                     
-                    <Container className="d-flex mt-3">
-                        {isLogin ? <p>
-                            Dont have account?{" "}
-                            <Link to={REGISTRATION_ROUTE}>Registration</Link>
-                        </p>:
+                    <Row className="d-flex mt-2" >
+                        {error && <p className="text-danger mt-2">{error}</p>}
+                    </Row>
+
+                    <Container className="d-flex" style={{marginLeft: -10}}>
+                        {isLogin ? 
+                            <p>
+                                Dont have account?{" "}
+                                <Link to={REGISTRATION_ROUTE}>Registration</Link>
+                            </p>:
                             <p>
                                 Have account?{" "}
                                 <Link to={LOGIN_ROUTE}>Log In</Link>
@@ -65,6 +91,6 @@ const Auth = () =>{
             </Card>
         </Container>
     )
-}
+})
 
 export default Auth;
