@@ -9,7 +9,7 @@ export const authRouts = [
     {
         path: routes.ADMIN_ROUTE,
         Component: Admin
-    },//изза authRouts не переходит на admin
+    },
     {
         path: routes.BASKET_ROUTE,
         Component: Basket

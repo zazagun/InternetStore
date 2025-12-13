@@ -20,10 +20,14 @@ const App = observer(() => {
         })
         .catch(e => console.log(e.name))
         .finally(() => setLoading(false))
-    }, [])
+    }, [user])
 
     if (loading) {
-        return <Spinner animation={"grow"}/>
+        return(
+          <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+            <Spinner animation="grow" />
+          </div>
+        )
     }
   
   return (

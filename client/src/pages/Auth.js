@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef, useEffect} from "react";
 import Card from 'react-bootstrap/Card'
 import { Form, Container, Button, Row}  from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
@@ -42,6 +42,28 @@ const Auth = observer(() =>{
         }
     }
 
+    //активный инпут и enter
+    const emailRef = useRef(null)
+    const passwordRef = useRef(null)
+
+    useEffect(() => {
+        emailRef.current.focus()
+    }, [])
+
+     const handleEmailKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault()
+            passwordRef.current.focus()
+        }
+    }
+
+    const handlePasswordKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault()
+            click()
+        }
+    }
+
     return (
         <Container 
             className="d-flex justify-content-center align-items-center"
@@ -51,17 +73,21 @@ const Auth = observer(() =>{
                 <h2 className="mb-4 m-auto">{isLogin ? "Authorization": "Registration"}</h2>
                 <Form className="d-flex flex-column" >
                     <Form.Control 
+                        ref={emailRef}
                         className = "mt-2"
                         placeholder = "Enter your email"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
+                        onKeyDown={handleEmailKeyDown}
                     />
                     <Form.Control 
+                        ref={passwordRef}
                         className = "mt-2"
                         type="password"
                         placeholder = "Enter your password"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
+                        onKeyDown={handlePasswordKeyDown}
                     />
 
                     <Button

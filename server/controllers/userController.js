@@ -47,13 +47,13 @@ class UserController{
         const TOKEN = generaetJwt(user.id, user.email, user.role)
         return res.json({TOKEN})
     }
-    
+
     async check(req, res, next){
         const TOKEN = generaetJwt(req.user.id, req.user.email, req.user.role)
         if(!TOKEN){
             return res.json({message: "something wrong"})
         }else{
-            return res.json({message: "all fine", token: TOKEN})
+            return res.json({message: "all fine", TOKEN})
         }
     }
 }
