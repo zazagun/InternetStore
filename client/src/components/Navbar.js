@@ -15,6 +15,7 @@ const NavBar = observer(() => {
   const logOut = () => {
     user.setUser({})
     user.setIsAuth(false)
+    localStorage.removeItem("token")
   }
 
   return (
@@ -40,8 +41,8 @@ const NavBar = observer(() => {
               >
                 Log out
               </Button>
-
-            </Nav>:
+            </Nav>
+            :
             <Nav.Link href={LOGIN_ROUTE}>
               <Button>Authorization</Button>
             </Nav.Link>

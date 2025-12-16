@@ -1,13 +1,39 @@
 import { $authHost, $host } from "./index";
-import { jwtDecode } from "jwt-decode"
 
+//типы
 export const createType = async (type) => {
     const { data } = await $authHost.post('api/type', type)
     return data
 }
 
 export const fetchTypes = async () => {
-    const { data } = await $host.post('api/type')
+    const { data } = await $host.get('api/type')
     return data
 }
-//2.16.35
+
+//брэнды
+export const createBrand = async (brand) => {
+    const { data } = await $authHost.post('api/brand', brand)
+    return data
+}
+
+export const fetchBrands = async () => {
+    const { data } = await $host.get('api/brand')
+    return data
+}
+
+//девайсы
+export const createDevice = async (device) => {
+    const { data } = await $authHost.post('api/device', device)
+    return data
+}
+
+export const fetchDevices = async () => {
+    const { data } = await $host.get('api/device')
+    return data
+}
+
+export const fetchOneDevices = async (id) => {
+    const { data } = await $host.get('api/device/' + id)
+    return data
+}

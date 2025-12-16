@@ -9,7 +9,8 @@ const DeviceItem = ({device}) => {
     return(
         <Col md={3}  className="mt-4" onClick={() => navigate(DEVICE_ROUTE + "/" + device.id)}>
             <Card style={{width: 170, cursor: "pointer"}} border={"gray"}>
-                <Image src={device.img} width={167} height={165}/>
+                <Image src={process.env.REACT_APP_API_URL + device.img} width={167} height={165}/>
+                {/* не отображаются картинки 2.19.50 */}
 
                 <div className="text-black-50 d-flex justify-content-between align-items-center">
                     {device.brand || "Samsung..."}

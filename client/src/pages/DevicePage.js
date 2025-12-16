@@ -17,6 +17,7 @@ const DevicePage = () =>{
         {id: 4, title: "Потребление", description: "150 ВТ"},
         {id: 5, title: "Количество куллеров", description: "3"},
     ]
+    /* 2.20.06 */
 
     return (
         <Container className="mt-4">
