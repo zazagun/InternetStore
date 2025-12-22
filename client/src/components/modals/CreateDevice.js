@@ -3,8 +3,9 @@ import { Form, Dropdown, Row, Col } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Context } from "../../index";
+import { observer } from "mobx-react-lite";
 
-const CreateDevice = ({show, onHide}) => {
+const CreateDevice = observer(({show, onHide}) => {
     const {device} = useContext(Context)
     const [info, setInfo] = useState([])
 
@@ -102,6 +103,6 @@ const CreateDevice = ({show, onHide}) => {
         
         
     )
-}
+})
 
 export default CreateDevice;
