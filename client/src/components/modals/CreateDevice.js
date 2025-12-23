@@ -5,6 +5,8 @@ import Modal from 'react-bootstrap/Modal';
 import { Context } from "../../index";
 import { observer } from "mobx-react-lite";
 
+//2.24.26
+
 const CreateDevice = observer(({show, onHide}) => {
     const {device} = useContext(Context)
     const [info, setInfo] = useState([])
