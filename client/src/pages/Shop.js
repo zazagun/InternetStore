@@ -20,7 +20,7 @@ const Shop = observer(() => {
 
         fetchDevices()
             .then(data => device.setDevices(data))
-    })
+    }, [])
 
     return (
         <Container>
