@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite";
 import noImage from "../../assets/image-missing.svg"
 import { fetchBrands, fetchDevices, fetchTypes } from "../../http/deviceAPI";
 
-//2.28.14
+//2.30.53
 
 const CreateDevice = observer(({show, onHide}) => {
     const {device} = useContext(Context)
@@ -22,11 +22,19 @@ const CreateDevice = observer(({show, onHide}) => {
         setFile(e.target.files[0])
     }
 
-    const addInfo = () =>{
+    const addInfo = () => {
         setInfo([...info, {title: "", description: "", number: Date.now()}])
+    }
+    const changeInfo = (key, value, number) => {
+        setInfo(info.map(i => i.number === number ? {...i, [key]: value} : i))
     }
     const removeinfo = (number) => {
         setInfo(info.filter(item => item.number !== number))
+    }
+
+    const addDevice = () => {
+        console.log(info)
+        onHide()
     }
 
     useEffect(() => {
@@ -111,12 +119,16 @@ const CreateDevice = observer(({show, onHide}) => {
                 {info.map(item => 
                     <Row className="d-flex mt-2" key={item.number}>
                         <Col md={4}>
-                            <Form.Control 
+                            <Form.Control
+                                value={item.title}
+                                onChange={(e) => changeInfo("title", e.target.value, item.number)}
                                 placeholder="Enter name of property"
                             />
                         </Col>
                         <Col md={4}>
-                            <Form.Control 
+                            <Form.Control
+                                value={item.description}
+                                onChange={(e) => changeInfo("description", e.target.value, item.number)}
                                 placeholder="Enter description of property"
                             />
                         </Col>
@@ -135,7 +147,7 @@ const CreateDevice = observer(({show, onHide}) => {
 
         <Modal.Footer>
             <Button variant={"outline-dark"} onClick={(onHide)}>Close</Button>
-            <Button variant={"outline-success"} onClick={(onHide)}>Add</Button>
+            <Button variant={"outline-success"} onClick={addDevice}>Add</Button>
         </Modal.Footer>
 
         </Modal>
