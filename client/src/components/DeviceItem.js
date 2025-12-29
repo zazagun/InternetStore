@@ -6,10 +6,19 @@ import { DEVICE_ROUTE } from "../utils/consts";
 const DeviceItem = ({device}) => {
     const navigate = useNavigate()
 
+
+    const toUpperLetterOfName = () => {
+        if (!device.name) return ""
+        return device.name.charAt(0).toUpperCase() + device.name.slice(1)
+    }
+
+
     return(
         <Col md={3}  className="mt-4" onClick={() => navigate(DEVICE_ROUTE + "/" + device.id)}>
             <Card style={{width: 170, cursor: "pointer"}} border={"gray"}>
-                <Image src={process.env.REACT_APP_API_URL + "/" + device.img} width={167} height={165}/>
+                <Image src={process.env.REACT_APP_API_URL + "/" + device.img}
+                    width={167} height={165}
+                />
 
                 <div className="text-black-50 d-flex justify-content-between align-items-center">
                     {device.brand || "Samsung..."}
@@ -21,7 +30,7 @@ const DeviceItem = ({device}) => {
 
                 <hr style={{width: "70%", justifyContent: "center", alignItems:"center", margin: "5px auto"}}/>
                 <div>
-                    {device.name}
+                    {toUpperLetterOfName()}
                 </div>
                 <div>
                     {device.price + " Руб."}

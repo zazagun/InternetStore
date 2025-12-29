@@ -8,6 +8,8 @@ import { observer } from "mobx-react-lite";
 import { Context } from "../index.js";
 import { fetchBrands, fetchDevices, fetchTypes } from "../http/deviceAPI";
 
+//2.33.06
+
 const Shop = observer(() => {
     const {device} = useContext(Context)
 

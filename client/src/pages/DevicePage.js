@@ -13,6 +13,11 @@ const DevicePage = () =>{
             .then(data => setDevice(data))
     }, [id])
 
+    const toUpperLetterOfName = () => {
+        if (!device.name) return ""
+        return device.name.charAt(0).toUpperCase() + device.name.slice(1)
+    }
+
     return (
         <Container className="mt-4">
             <Row className="align-items-center">
@@ -22,7 +27,7 @@ const DevicePage = () =>{
 
                 <Col md={4} className="d-flex justify-content-center">
                     <Row className="d-flex flex-column align-items-center" style={{display: 'flex', alignItems: "center"}}>
-                        <h2 className="d-flex flex-column align-items-center">{device.name}</h2>
+                        <h2 className="d-flex flex-column align-items-center">{toUpperLetterOfName()}</h2>
                         <div
                             className="d-flex align-items-center justify-content-center"
                             style={{background: `url(${bigStar}) no-repeat center center`, width: 240, height:240, backgroundsize: "cover", fontSize: 64}}
@@ -47,7 +52,7 @@ const DevicePage = () =>{
                 {device.info.map((info, index) =>
                     <Row key={info.id} style={{background: index % 2 === 0 ? "#8792a0ff" : "transparent", padding: 10}}>
                         {info.title + ": " + info.description}
-                    </Row>
+                    </Row>//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 )}
             </Row>
         </Container>

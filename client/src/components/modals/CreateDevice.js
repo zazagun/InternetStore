@@ -4,19 +4,15 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Context } from "../../index";
 import { observer } from "mobx-react-lite";
-import noImage from "../../assets/image-missing.svg"
-import { fetchBrands, fetchDevices, fetchTypes } from "../../http/deviceAPI";
-
-//2.30.53
+import noImage from "../../assets/imageMissing.svg"
+import { createDevice, fetchBrands, fetchDevices, fetchTypes } from "../../http/deviceAPI";
 
 const CreateDevice = observer(({show, onHide}) => {
     const {device} = useContext(Context)
     const [info, setInfo] = useState([])
     const [name, setName] = useState()
     const [price, setPrice] = useState(0)
-    const [file, setFile] = useState(noImage)
-    const [brand, setBrand] = useState(null)
-    const [type, setType] = useState(null)
+    const [file, setFile] = useState(noImage)//зафиксить чтоб сохранялось даже если нет изображения
 
     const selectFile = e => {
         setFile(e.target.files[0])
@@ -33,7 +29,17 @@ const CreateDevice = observer(({show, onHide}) => {
     }
 
     const addDevice = () => {
-        console.log(info)
+        const formData = new FormData
+        formData.append('name', name)
+        formData.append('price', `${price}`)
+        formData.append('img', file)
+        formData.append('brandId', device.selectedBrand.id)
+        formData.append('typeId', device.selectedType.id)
+        formData.append('info', JSON.stringify(info))
+        createDevice(formData)
+            .then(console.log(formData + "sucsess"))
+            .catch(e => console.log(e))
+
         onHide()
     }
 
