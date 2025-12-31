@@ -4,14 +4,19 @@ import { Context } from "../index.js";
 import { Card, Row } from "react-bootstrap";
 
 const BrandBar = observer(() => {
-    const { device } = useContext(Context);
-    const [isClearActive, setIsClearActive] = useState(false);
+    const { device } = useContext(Context)
+    const [isClearActive, setIsClearActive] = useState(false)
 
     const handleClearFilters = () => {
         device.setSelectedBrand(null);
         setIsClearActive(true);
         setTimeout(() => setIsClearActive(false), 250);
-    };
+    }
+
+    const toUpperLetterOfName = (name) => {
+        if (!name) return ""
+        return name.charAt(0).toUpperCase() + name.slice(1)
+    }
 
     return (
         <Row className="d-flex flex-wrap align-items-center">
@@ -31,7 +36,7 @@ const BrandBar = observer(() => {
                         color: brand.id === device.selectedBrand?.id ? "white" : ""
                     }}
                 >
-                    {brand.name}
+                    {toUpperLetterOfName(brand.name)}
                 </Card>
             ))}
             <Card

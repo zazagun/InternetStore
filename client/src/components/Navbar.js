@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from "react-bootstrap/Button";
-import { SHOP_ROUTE, LOGIN_ROUTE, ADMIN_ROUTE } from '../utils/consts';
+import { SHOP_ROUTE, LOGIN_ROUTE, ADMIN_ROUTE, BASKET_ROUTE } from '../utils/consts';
 import { useContext } from 'react';
 import { Context } from '../index.js';
 import { observer } from 'mobx-react-lite';
@@ -24,7 +24,7 @@ const NavBar = observer(() => {
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-between">
           <Nav>
             <Nav.Link href={SHOP_ROUTE}>Shop page</Nav.Link>
-            <Nav.Link href="#somePage">page</Nav.Link>
+            <Nav.Link href={BASKET_ROUTE}>Busket</Nav.Link>
           </Nav>
 
           {user.isAuth ? 

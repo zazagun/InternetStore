@@ -52,7 +52,7 @@ const DevicePage = () =>{
                 {device.info.map((info, index) =>
                     <Row key={info.id} style={{background: index % 2 === 0 ? "#8792a0ff" : "transparent", padding: 10}}>
                         {info.title + ": " + info.description}
-                    </Row>//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    </Row>
                 )}
             </Row>
         </Container>

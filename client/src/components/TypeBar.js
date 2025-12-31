@@ -13,6 +13,11 @@ const TypeBar = observer(() => {
         setTimeout(() => setIsClearActive(false), 250);
     };
 
+    const toUpperLetterOfName = (name) => {
+        if (!name) return ""
+        return name.charAt(0).toUpperCase() + name.slice(1)
+    }
+
     return (
         <ListGroup  style={{ width: 'fit-content', marginLeft: -20}}>
             {device.types.map((type) => (
@@ -22,7 +27,7 @@ const TypeBar = observer(() => {
                     onClick={() => device.setSelectedType(type)}
                     key={type.id}
                 >
-                    {type.name}
+                    {toUpperLetterOfName(type.name)}
                 </ListGroup.Item>
             ))}
             <ListGroup.Item

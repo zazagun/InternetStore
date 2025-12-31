@@ -2,14 +2,22 @@ import { Card, Col, Image } from "react-bootstrap";
 import star from "../assets/star_rating.svg"
 import { useNavigate } from "react-router-dom";
 import { DEVICE_ROUTE } from "../utils/consts";
+import React, { useContext } from "react";
+import { Context } from "../index.js";
 
 const DeviceItem = ({device}) => {
+    const { device: deviceContext } = useContext(Context)
     const navigate = useNavigate()
 
 
     const toUpperLetterOfName = () => {
         if (!device.name) return ""
         return device.name.charAt(0).toUpperCase() + device.name.slice(1)
+    }
+
+    const getBrandName = (brandId) => {
+        const brand = deviceContext.brands.find(brand => brand.id === brandId)
+        return brand ? brand.name : "unknown brand"
     }
 
 
@@ -21,7 +29,7 @@ const DeviceItem = ({device}) => {
                 />
 
                 <div className="text-black-50 d-flex justify-content-between align-items-center">
-                    {device.brand || "Samsung..."}
+                    {getBrandName(device.brandId)}
                     <div className="d-flex align-items-center">
                         <div>{device.rating}</div>
                         <Image src={star} width={20} height={20} />
@@ -29,9 +37,11 @@ const DeviceItem = ({device}) => {
                 </div>
 
                 <hr style={{width: "70%", justifyContent: "center", alignItems:"center", margin: "5px auto"}}/>
+                
                 <div>
                     {toUpperLetterOfName()}
                 </div>
+
                 <div>
                     {device.price + " Руб."}
                 </div>
