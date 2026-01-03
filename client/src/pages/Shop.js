@@ -21,8 +21,8 @@ const Shop = observer(() => {
 
         fetchDevices()
             .then(data => {
-                device.setDevices(data) //если писать rows \ count падает
-                device.setTotalCount(data)//2.37.45
+                device.setDevices(data.rows) //если писать rows \ count падает
+                device.setTotalCount(data.count)//2.37.45
             })
     }, [device])
 
