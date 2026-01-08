@@ -8,7 +8,7 @@ const TypeBar = observer(() => {
     const [isClearActive, setIsClearActive] = useState(false);
 
     const handleClearFilters = () => {
-        device.setSelectedType(null);
+        device.setSelectedType({});
         setIsClearActive(true); 
         setTimeout(() => setIsClearActive(false), 250);
     };

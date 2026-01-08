@@ -21,10 +21,18 @@ const Shop = observer(() => {
 
         fetchDevices()
             .then(data => {
-                device.setDevices(data.rows) //если писать rows \ count падает
-                device.setTotalCount(data.count)//2.37.45
+                device.setDevices(data.rows) 
+                device.setTotalCount(data.count)
             })
     }, [device])
+
+    useEffect(() => {
+        fetchDevices(device.selectedType.id, device.selectedBrand.id, device.page, device.limit)
+            .then(data => {
+                device.setDevices(data.rows)
+                device.setTotalCount(data.count)
+            })
+    }, [device.page, device.selectedType, device.selectedBrand, device])
 
     return (
         <Container>

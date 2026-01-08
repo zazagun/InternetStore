@@ -2,7 +2,6 @@ const { Device, DeviceInfo } = require("../models/models")
 const ApiError = require('../error/apiError')
 const uuid = require('uuid')
 const path = require("path")
-const { Json } = require("sequelize/lib/utils")
 const noImagePath = path.resolve(__dirname, '../assets/imageMissing.svg')
 
 class deviceController{
@@ -47,7 +46,7 @@ class deviceController{
     async getAll(req, res){
         let {brandId, typeId, limit, page} = req.query
         page = page || 1
-        limit = limit || 9 //change
+        limit = limit || 8 //change
         let offset = page * limit - limit
         let device;
         if(!brandId && !typeId){

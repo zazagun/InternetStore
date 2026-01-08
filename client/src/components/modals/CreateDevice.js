@@ -5,8 +5,6 @@ import Modal from 'react-bootstrap/Modal';
 import { Context } from "../../index";
 import { observer } from "mobx-react-lite";
 import { createDevice, fetchBrands, fetchDevices, fetchTypes } from "../../http/deviceAPI";
-import { SHOP_ROUTE } from "../../utils/consts";
-import { useNavigate } from "react-router-dom";
 
 const CreateDevice = observer(({show, onHide}) => {
     const {device} = useContext(Context)
@@ -15,7 +13,6 @@ const CreateDevice = observer(({show, onHide}) => {
     const [price, setPrice] = useState(0)
     const [file, setFile] = useState()
 
-    const navigate = useNavigate()
 
     const selectFile = e => {
         setFile(e.target.files[0])
@@ -44,7 +41,6 @@ const CreateDevice = observer(({show, onHide}) => {
             .catch(e => console.log(e))
 
         onHide()
-        navigate(SHOP_ROUTE)
     }
 
     useEffect(() => {

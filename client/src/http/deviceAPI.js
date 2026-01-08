@@ -28,8 +28,8 @@ export const createDevice = async (device) => {
     return data
 }
 
-export const fetchDevices = async (typeId, brandId, page, limit = 5) => {
-    const { data } = await $host.get('api/device',{params: {//тоже менять limit
+export const fetchDevices = async (typeId, brandId, page, limit = 8) => {
+    const { data } = await $host.get('api/device',{params: {//change
         typeId, brandId, page, limit
     }})
     return data

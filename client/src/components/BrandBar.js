@@ -8,7 +8,7 @@ const BrandBar = observer(() => {
     const [isClearActive, setIsClearActive] = useState(false)
 
     const handleClearFilters = () => {
-        device.setSelectedBrand(null);
+        device.setSelectedBrand({});
         setIsClearActive(true);
         setTimeout(() => setIsClearActive(false), 250);
     }
