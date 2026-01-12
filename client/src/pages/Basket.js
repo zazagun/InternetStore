@@ -9,6 +9,7 @@ const Basket = () =>{
     console.log(device)
 
 
+
     return (
         <Container>
             <p>add basket in the future</p>
