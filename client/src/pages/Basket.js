@@ -8,8 +8,6 @@ const Basket = () =>{
     const { device } = useContext(Context)
     console.log(device)
 
-
-
     return (
         <Container>
             <p>add basket in the future</p>
