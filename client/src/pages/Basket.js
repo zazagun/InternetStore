@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 
 const Basket = () =>{
     const { device } = useContext(Context)
+    console.log(device)
 
     return (
         <Container>

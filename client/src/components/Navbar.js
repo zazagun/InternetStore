@@ -24,7 +24,11 @@ const NavBar = observer(() => {
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-between">
           <Nav>
             <Nav.Link href={SHOP_ROUTE}>Shop page</Nav.Link>
-            <Nav.Link href={BASKET_ROUTE}>Busket</Nav.Link>
+            {user.isAuth ? 
+              <Nav.Link href={BASKET_ROUTE}>Busket</Nav.Link>
+              :
+              <></>
+            }
           </Nav>
 
           {user.isAuth ? 
