@@ -41,8 +41,8 @@ export const fetchOneDevices = async (id) => {
 }
 
 //basket
-export const addDevice = async (id) => {
-    const { data } = await $authHost.post("api/basket", id)
+export const addDevice = async (deviceId) => {
+    const { data } = await $authHost.post("api/basket", {deviceId})
     return data
 }
 
@@ -51,7 +51,7 @@ export const fetchFromBasket = async () => {
     return data
 }
 
-export const deleteDevice = async (id) => {
-    const { data } = await $authHost.delete('api/basket', { data: { deviceId: id } })
-    return data
-}
+export const deleteDevice = async (deviceId) => {
+    const { data } = await $authHost.delete('api/basket', { data: { deviceId: deviceId } })
+    return data                                    //просто передать deviceId
+}//починить удаление из корзины

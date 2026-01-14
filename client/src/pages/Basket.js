@@ -1,18 +1,14 @@
-import React, { useEffect } from "react";
-import { Context } from "../index";
-import { useContext } from "react";
+import React from "react";
 import { Container } from "react-bootstrap";
-import { addDevice, fetchFromBasket, deleteDevice } from "../http/deviceAPI"
+import BasketItem from "../components/BasketItem";
 
-const Basket = () =>{
-    const { device } = useContext(Context)
-    console.log(device)
-
+const Basket = () => {
     return (
         <Container>
-            <p>add basket in the future</p>
+            <h2>Basket</h2>
+            <BasketItem />
         </Container>
-    )
-}
+    );
+};
 
 export default Basket;

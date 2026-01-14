@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext} from "react";
 import { Container, Col, Image, Row, Card, Button } from "react-bootstrap";
 import bigStar from "../assets/big_star.svg";
 import { useParams } from "react-router-dom";
 import { fetchOneDevices } from "../http/deviceAPI";
+import { observer } from "mobx-react-lite";
+import { Context } from "../index";
+import { addDevice } from "../http/deviceAPI"
 
-const DevicePage = () =>{
+const DevicePage = observer(() =>{
     const [device, setDevice] = useState({info: []})
     const { id } = useParams()
+    const { user } = useContext(Context)
+    const [error, setError] = useState("")
 
     useEffect(() => {
         fetchOneDevices(id)
@@ -16,6 +21,20 @@ const DevicePage = () =>{
     const toUpperLetterOfName = () => {
         if (!device.name) return ""
         return device.name.charAt(0).toUpperCase() + device.name.slice(1)
+    }
+
+    const handleAddToBasket = async () => {
+        setError("")
+        if (!user.isAuth) {
+            return;
+        }
+        try {
+            await addDevice(id)
+        } catch (error) {
+            console.log("устройство уже добавлено")//доделать в UI
+            console.error("Ошибка при добавлении в корзину:", error)
+            setError(error.response?.data?.message || "Произошла ошибка")
+        }
     }
 
     return (
@@ -40,10 +59,24 @@ const DevicePage = () =>{
                 <Col md={4} className="d-flex justify-content-center">
                     <Card
                         className="d-flex flex-column align-items-center justify-content-around"
-                        style={{width: 300, height: 300, fontSize: 32}}
+                        style={{width: 300, height: 300, fontSize: 30}}
                     >
-                        <h3>{device.price} Рубелей</h3>
-                        <Button >Добавить в корзину</Button>
+                        <h3>{device.price} Рублей</h3>
+                        <Button 
+                            onClick={handleAddToBasket}
+                            style={{
+                                marginBottom: 0
+                            }}
+                        >
+                            Добавить в корзину
+                        </Button>
+
+                        <Row className="d-flex mt-1" style={{
+                            fontSize: 20
+                        }}>
+                            {error && <p className="text-danger mt-2">{error}</p>}
+                        </Row>
+
                     </Card>
                 </Col>
             </Row>
@@ -57,6 +90,6 @@ const DevicePage = () =>{
             </Row>
         </Container>
     )
-}
+})
 
 export default DevicePage;

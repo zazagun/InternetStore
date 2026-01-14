@@ -3,11 +3,16 @@ const { Basket, BasketDevice, Device } = require("../models/models");
 class basketController {
     async addDevice(req, res) {
         const { deviceId } = req.body
-        const userId = req.user.id//fix
 
-        let basket = await Basket.findOne({ where: { userId } });
+        if (!deviceId) {
+            return res.status(400).json({ message: "deviceId не передан" })
+        }
+
+        const userId = req.user.id
+
+        let basket = await Basket.findOne({ where: { userId } })
         if (!basket) {
-            basket = await Basket.create({ userId });
+            basket = await Basket.create({ userId })
         }
 
         const existingBasketDevice = await BasketDevice.findOne({
@@ -15,11 +20,11 @@ class basketController {
         });
 
         if (existingBasketDevice) {
-            return res.status(400).json({message: "device in the basket"});
+            return res.status(400).json({message: "device in the basket"})
         }
 
-        const basketDevice = await BasketDevice.create({ basketId: basket.id, deviceId });
-        return res.json(basketDevice);
+        const basketDevice = await BasketDevice.create({ basketId: basket.id, deviceId })
+        return res.json(basketDevice)
     }
 
     async getAll(req, res) {

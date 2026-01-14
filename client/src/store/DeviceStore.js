@@ -5,6 +5,7 @@ export default class DeviceStore{
         this._types = []
         this._brands = []
         this._devices = []
+        this._basketDevices = []
 
         this._selectedType = {}
         this._selectedBrand = {}
@@ -37,6 +38,9 @@ export default class DeviceStore{
     setTotalCount(count){
         this._totalCount = count
     }
+    setBasketDevices(devices) {
+        this._basketDevices = devices;
+    }
     //get
     get types(){
         return this._types
@@ -61,5 +65,8 @@ export default class DeviceStore{
     }
     get limit(){
         return this._limit
+    }
+    get basketDevices() {
+        return this._basketDevices;
     }
 }

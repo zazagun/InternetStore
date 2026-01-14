@@ -15,7 +15,7 @@ const Auth = observer(() =>{
     const isLogin = location.pathname === LOGIN_ROUTE
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [error, setError] = useState("");
+    const [error, setError] = useState("")
 
     const click = async () => {
         try{
