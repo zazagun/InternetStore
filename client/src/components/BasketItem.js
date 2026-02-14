@@ -32,8 +32,10 @@ const BasketItem = observer(() => {
                 device.basketDevices.map((basketDevice) => (
                     <div key={basketDevice.id} style={{ border: "1px solid #ccc", padding: "10px", margin: "10px" }}>
                         <p>Name: {basketDevice.device.name}</p>
+
                         <p>Price: <strong>{basketDevice.device.price}</strong> Руб.</p>
-                        <button onClick={() => handleDelete(basketDevice.id)}>Удалить</button>
+                        
+                        <button onClick={() => handleDelete(basketDevice.deviceId)}>Удалить</button>
                     </div>
                 ))//переделать UI
             ) : (

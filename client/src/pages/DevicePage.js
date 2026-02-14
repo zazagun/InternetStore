@@ -12,6 +12,7 @@ const DevicePage = observer(() =>{
     const { id } = useParams()
     const { user } = useContext(Context)
     const [error, setError] = useState("")
+    const [successMessage, setSuccessMessage] = useState("")
 
     useEffect(() => {
         fetchOneDevices(id)
@@ -25,17 +26,23 @@ const DevicePage = observer(() =>{
 
     const handleAddToBasket = async () => {
         setError("")
+        setSuccessMessage("")
         if (!user.isAuth) {
             return;
         }
         try {
             await addDevice(id)
+            setSuccessMessage("Устройство успешно добавлено в корзину!")
         } catch (error) {
-            console.log("устройство уже добавлено")//доделать в UI
-            console.error("Ошибка при добавлении в корзину:", error)
-            setError(error.response?.data?.message || "Произошла ошибка")
+            if (error.response && error.response.data && error.response.data.message === "device in the basket") {
+                setError("Устройство уже в корзине");
+            } else {
+                console.error("Ошибка при добавлении в корзину:", error);
+                setError(error.response?.data?.message || "Произошла ошибка");
+            }
         }
     }
+
 
     return (
         <Container className="mt-4">
@@ -62,6 +69,7 @@ const DevicePage = observer(() =>{
                         style={{width: 300, height: 300, fontSize: 30}}
                     >
                         <h3>{device.price} Рублей</h3>
+
                         <Button 
                             onClick={handleAddToBasket}
                             style={{
@@ -71,10 +79,9 @@ const DevicePage = observer(() =>{
                             Добавить в корзину
                         </Button>
 
-                        <Row className="d-flex mt-1" style={{
-                            fontSize: 20
-                        }}>
-                            {error && <p className="text-danger mt-2">{error}</p>}
+                        <Row className="d-flex justify-content-center mt-1" style={{ fontSize: 16, width: '100%' }}>
+                            {error && <p className="text-danger mb-0 text-center">{error}</p>}
+                            {successMessage && <p className="text-success mb-0 text-center">{successMessage}</p>}
                         </Row>
 
                     </Card>

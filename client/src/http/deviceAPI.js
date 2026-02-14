@@ -52,6 +52,6 @@ export const fetchFromBasket = async () => {
 }
 
 export const deleteDevice = async (deviceId) => {
-    const { data } = await $authHost.delete('api/basket', { data: { deviceId: deviceId } })
-    return data                                    //просто передать deviceId
-}//починить удаление из корзины
+    const { data } = await $authHost.delete('api/basket',  { data: { deviceId } })
+    return data
+}
