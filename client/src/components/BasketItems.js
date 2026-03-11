@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { fetchFromBasket, deleteDevice } from "../http/deviceAPI";
 import { Context } from "../index";
 
-const BasketItem = observer(() => {
+const BasketItems = observer(() => {
     const { device } = useContext(Context);
 
     useEffect(() => {
@@ -45,4 +45,4 @@ const BasketItem = observer(() => {
     );
 });
 
-export default BasketItem;
+export default BasketItems;

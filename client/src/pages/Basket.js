@@ -1,12 +1,12 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import BasketItem from "../components/BasketItem";
+import BasketItems from "../components/BasketItems";
 
 const Basket = () => {
     return (
         <Container>
             <h2>Basket</h2>
-            <BasketItem />
+            <BasketItems />
         </Container>
     );
 };
