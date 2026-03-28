@@ -4,6 +4,7 @@ import Basket from "./pages/Basket"
 import DevicePage from "./pages/DevicePage"
 import Auth from "./pages/Auth"
 import Shop from "./pages/Shop"
+import PageNotFound from "./pages/PageNotFound"
 
 export const authRouts = [
     {
@@ -33,4 +34,8 @@ export const publicRouts = [
         path: routes.SHOP_ROUTE,
         Component: Shop
     },
+    {
+        path: routes.PAGE_NOT_FOUND,
+        Component: PageNotFound
+    }
 ]
