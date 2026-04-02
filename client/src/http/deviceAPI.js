@@ -36,8 +36,10 @@ export const fetchDevices = async (typeId, brandId, page, limit = 8) => {
 }
 
 export const fetchOneDevices = async (id) => {
-    const { data } = await $host.get('api/device/' + id)
-    return data
+    
+        const { data } = await $host.get('api/device/' + id)
+        return data
+    
 }
 
 //basket

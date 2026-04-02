@@ -38,7 +38,7 @@ class deviceController{
             }
 
             return res.json(device)
-        } catch (e) {
+        } catch(e) {
             next(ApiError.badRequest(e.message))
         }
     }
@@ -70,13 +70,18 @@ class deviceController{
 
     async getOne(req,res){
         const{id} = req.params
-        const device = await Device.findOne(
+
+        if(!isNaN(id)){
+            const device = await Device.findOne(
             {
                 where:{id},
                 include: [{model: DeviceInfo, as: 'info'}]
             }
-        )
-        return res.json(device)
+            )
+            return res.json(device) 
+        }else{
+            return res.json(undefined)
+        }
     }
 }
 

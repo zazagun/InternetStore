@@ -7,6 +7,8 @@ import { login, registration } from "../http/userApi";
 import { observer } from 'mobx-react-lite';
 import { Context } from "../index";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet"
+
 
 const Auth = observer(() =>{
     const { user } = useContext(Context)
@@ -65,57 +67,63 @@ const Auth = observer(() =>{
     }
 
     return (
-        <Container 
-            className="d-flex justify-content-center align-items-center"
-            style={{marginTop: "16vh"}}
-        >
-            <Card style={{width: 600}} className="p-4">
-                <h2 className="mb-4 m-auto">{isLogin ? "Authorization": "Registration"}</h2>
-                <Form className="d-flex flex-column" >
-                    <Form.Control 
-                        ref={emailRef}
-                        className = "mt-2"
-                        placeholder = "Enter your email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        onKeyDown={handleEmailKeyDown}
-                    />
-                    <Form.Control 
-                        ref={passwordRef}
-                        className = "mt-2"
-                        type="password"
-                        placeholder = "Enter your password"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        onKeyDown={handlePasswordKeyDown}
-                    />
+        <>
+            <Helmet>
+                <title>Authorization</title>
+            </Helmet>
 
-                    <Button
-                        className="mt-3"
-                        onClick={click}
-                    >
-                        {isLogin ? "Log in" : "Register"}
-                    </Button>
-                    
-                    <Row className="d-flex mt-2" >
-                        {error && <p className="text-danger mt-2">{error}</p>}
-                    </Row>
+            <Container 
+                className="d-flex justify-content-center align-items-center"
+                style={{marginTop: "16vh"}}
+            >
+                <Card style={{width: 600}} className="p-4">
+                    <h2 className="mb-4 m-auto">{isLogin ? "Authorization": "Registration"}</h2>
+                    <Form className="d-flex flex-column" >
+                        <Form.Control 
+                            ref={emailRef}
+                            className = "mt-2"
+                            placeholder = "Enter your email"
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
+                            onKeyDown={handleEmailKeyDown}
+                        />
+                        <Form.Control 
+                            ref={passwordRef}
+                            className = "mt-2"
+                            type="password"
+                            placeholder = "Enter your password"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                            onKeyDown={handlePasswordKeyDown}
+                        />
 
-                    <Container className="d-flex" style={{marginLeft: -10}}>
-                        {isLogin ? 
-                            <p>
-                                Dont have account?{" "}
-                                <Link to={REGISTRATION_ROUTE}>Registration</Link>
-                            </p>:
-                            <p>
-                                Have account?{" "}
-                                <Link to={LOGIN_ROUTE}>Log In</Link>
-                            </p>
-                        }
-                    </Container>
-                </Form>
-            </Card>
-        </Container>
+                        <Button
+                            className="mt-3"
+                            onClick={click}
+                        >
+                            {isLogin ? "Log in" : "Register"}
+                        </Button>
+                        
+                        <Row className="d-flex mt-2" >
+                            {error && <p className="text-danger mt-2">{error}</p>}
+                        </Row>
+
+                        <Container className="d-flex" style={{marginLeft: -10}}>
+                            {isLogin ? 
+                                <p>
+                                    Dont have account?{" "}
+                                    <Link to={REGISTRATION_ROUTE}>Registration</Link>
+                                </p>:
+                                <p>
+                                    Have account?{" "}
+                                    <Link to={LOGIN_ROUTE}>Log In</Link>
+                                </p>
+                            }
+                        </Container>
+                    </Form>
+                </Card>
+            </Container>
+        </>
     )
 })
 

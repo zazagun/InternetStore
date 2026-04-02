@@ -8,6 +8,8 @@ import { observer } from "mobx-react-lite";
 import { Context } from "../index.js";
 import { fetchBrands, fetchDevices, fetchTypes } from "../http/deviceAPI";
 import Pages from "../components/Pages.js";
+import { Helmet } from "react-helmet"
+
 
 const Shop = observer(() => {
     const {device} = useContext(Context)
@@ -35,18 +37,24 @@ const Shop = observer(() => {
     }, [device.page, device.selectedType, device.selectedBrand, device])
 
     return (
-        <Container>
-            <Row className="d-flex mt-2" style={{ padding: "20px"}} >
-                <Col md={2}>
-                    <TypeBar />
-                </Col>
-                <Col md={10}>
-                    <BrandBar />
-                    <DeviceList />
-                    <Pages />
-                </Col>
-            </Row>
-        </Container>
+        <>
+            <Helmet>
+                <title>Device Store</title>
+            </Helmet>
+
+            <Container>
+                <Row className="d-flex mt-2" style={{ padding: "20px"}} >
+                    <Col md={2}>
+                        <TypeBar />
+                    </Col>
+                    <Col md={10}>
+                        <BrandBar />
+                        <DeviceList />
+                        <Pages />
+                    </Col>
+                </Row>
+            </Container>
+        </>
     )
 })
 

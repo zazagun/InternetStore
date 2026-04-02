@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useContext} from "react";
 import { Container, Col, Image, Row, Card, Button } from "react-bootstrap";
 import bigStar from "../assets/big_star.svg";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { fetchOneDevices } from "../http/deviceAPI";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 import { addDevice } from "../http/deviceAPI"
+import { Helmet } from "react-helmet"
+import { SHOP_ROUTE } from "../utils/consts";
+
 
 const DevicePage = observer(() =>{
     const [device, setDevice] = useState({info: []})
@@ -13,11 +16,22 @@ const DevicePage = observer(() =>{
     const { user } = useContext(Context)
     const [error, setError] = useState("")
     const [successMessage, setSuccessMessage] = useState("")
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchOneDevices(id)
-            .then(data => setDevice(data))
-    }, [id])
+            .then((data) => {
+                if (!data) {
+                    navigate(SHOP_ROUTE)
+                } else{
+                    setDevice(data)
+                }
+            })
+            .catch((err) => {
+                console.error("Ошибка при загрузке устройства:", err)
+                navigate(SHOP_ROUTE)
+            });
+    }, [id, navigate])
 
     const toUpperLetterOfName = () => {
         if (!device.name) return ""
@@ -43,59 +57,64 @@ const DevicePage = observer(() =>{
         }
     }
 
-
     return (
-        <Container className="mt-4">
-            <Row className="align-items-center">
-                <Col md={4} className="d-flex justify-content-center">
-                    <Image src={process.env.REACT_APP_API_URL + "/" + device.img} width={300} height={300} style={{ display: "flex", alignItems: "center"}}/>
-                </Col>
+        <>
+            <Helmet>
+                <title>{toUpperLetterOfName()}</title>
+            </Helmet>
 
-                <Col md={4} className="d-flex justify-content-center">
-                    <Row className="d-flex flex-column align-items-center" style={{display: 'flex', alignItems: "center"}}>
-                        <h2 className="d-flex flex-column align-items-center">{toUpperLetterOfName()}</h2>
-                        <div
-                            className="d-flex align-items-center justify-content-center"
-                            style={{background: `url(${bigStar}) no-repeat center center`, width: 240, height:240, backgroundsize: "cover", fontSize: 64}}
-                        >
-                            {device.rating}
-                        </div>
-                    </Row>
-                </Col>
+            <Container className="mt-4">
+                <Row className="align-items-center">
+                    <Col md={4} className="d-flex justify-content-center">
+                        <Image src={process.env.REACT_APP_API_URL + "/" + device.img} width={300} height={300} style={{ display: "flex", alignItems: "center"}}/>
+                    </Col>
 
-                <Col md={4} className="d-flex justify-content-center">
-                    <Card
-                        className="d-flex flex-column align-items-center justify-content-around"
-                        style={{width: 300, height: 300, fontSize: 30}}
-                    >
-                        <h3>{device.price} Рублей</h3>
-
-                        <Button 
-                            onClick={handleAddToBasket}
-                            style={{
-                                marginBottom: 0
-                            }}
-                        >
-                            Добавить в корзину
-                        </Button>
-
-                        <Row className="d-flex justify-content-center mt-1" style={{ fontSize: 16, width: '100%' }}>
-                            {error && <p className="text-danger mb-0 text-center">{error}</p>}
-                            {successMessage && <p className="text-success mb-0 text-center">{successMessage}</p>}
+                    <Col md={4} className="d-flex justify-content-center">
+                        <Row className="d-flex flex-column align-items-center" style={{display: 'flex', alignItems: "center"}}>
+                            <h2 className="d-flex flex-column align-items-center">{toUpperLetterOfName()}</h2>
+                            <div
+                                className="d-flex align-items-center justify-content-center"
+                                style={{background: `url(${bigStar}) no-repeat center center`, width: 240, height:240, backgroundsize: "cover", fontSize: 64}}
+                            >
+                                {device.rating}
+                            </div>
                         </Row>
+                    </Col>
 
-                    </Card>
-                </Col>
-            </Row>
-            <Row className="d-flex flex-column m-3">
-                <h2>Характеристики</h2>
-                {device.info.map((info, index) =>
-                    <Row key={info.id} style={{background: index % 2 === 0 ? "#8792a0ff" : "transparent", padding: 10}}>
-                        {info.title + ": " + info.description}
-                    </Row>
-                )}
-            </Row>
-        </Container>
+                    <Col md={4} className="d-flex justify-content-center">
+                        <Card
+                            className="d-flex flex-column align-items-center justify-content-around"
+                            style={{width: 300, height: 300, fontSize: 30}}
+                        >
+                            <h3>{device.price} Рублей</h3>
+
+                            <Button 
+                                onClick={handleAddToBasket}
+                                style={{
+                                    marginBottom: 0
+                                }}
+                            >
+                                Добавить в корзину
+                            </Button>
+
+                            <Row className="d-flex justify-content-center mt-1" style={{ fontSize: 16, width: '100%' }}>
+                                {error && <p className="text-danger mb-0 text-center">{error}</p>}
+                                {successMessage && <p className="text-success mb-0 text-center">{successMessage}</p>}
+                            </Row>
+
+                        </Card>
+                    </Col>
+                </Row>
+                <Row className="d-flex flex-column m-3">
+                    <h2>Характеристики</h2>
+                    {device.info.map((info, index) =>
+                        <Row key={info.id} style={{background: index % 2 === 0 ? "#8792a0ff" : "transparent", padding: 10}}>
+                            {info.title + ": " + info.description}
+                        </Row>
+                    )}
+                </Row>
+            </Container>
+        </>
     )
 })
 
