@@ -41,6 +41,9 @@ export default class DeviceStore{
     setBasketDevices(devices) {
         this._basketDevices = devices;
     }
+    setRating(rating){
+        this._rating = rating
+    }
     //get
     get types(){
         return this._types
@@ -68,5 +71,8 @@ export default class DeviceStore{
     }
     get basketDevices() {
         return this._basketDevices;
+    }
+    get rating() {
+        return this._rating
     }
 }

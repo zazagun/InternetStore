@@ -45,27 +45,33 @@ class deviceController{
 
     async getAll(req, res){
         let {brandId, typeId, limit, page} = req.query
-        page = page || 1
-        limit = limit || 8 //change
-        let offset = page * limit - limit
-        let device;
-        if(!brandId && !typeId){
-            device = await Device.findAndCountAll({limit, offset})
 
-        }
-        else if(brandId && !typeId){
-            device = await Device.findAndCountAll({where:{brandId}, limit, offset})
+        if(!isNaN(brandId) && !isNaN(typeId) && !isNaN(limit) && !isNaN(page)){
+            page = page || 1
+            limit = limit || 8 //change
+            let offset = page * limit - limit
+            let device;
+            if(!brandId && !typeId){
+                device = await Device.findAndCountAll({limit, offset})
 
-        }
-        else if(!brandId && typeId){
-            device = await Device.findAndCountAll({where:{typeId}, limit, offset})
+            }
+            else if(brandId && !typeId){
+                device = await Device.findAndCountAll({where:{brandId}, limit, offset})
 
-        }
-        else if(brandId && typeId){
-            device = await Device.findAndCountAll({where:{typeId, brandId}, limit, offset})
+            }
+            else if(!brandId && typeId){
+                device = await Device.findAndCountAll({where:{typeId}, limit, offset})
 
+            }
+            else if(brandId && typeId){
+                device = await Device.findAndCountAll({where:{typeId, brandId}, limit, offset})
+
+            }
+            return res.json(device)
+        }else{
+            return res.json(undefined)
         }
-        return res.json(device)
+        
     }
 
     async getOne(req,res){

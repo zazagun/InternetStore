@@ -9,7 +9,6 @@ const DeviceItem = ({device}) => {
     const { device: deviceContext } = useContext(Context)
     const navigate = useNavigate()
 
-
     const toUpperLetterOfName = () => {
         if (!device.name) return ""
         return device.name.charAt(0).toUpperCase() + device.name.slice(1)
@@ -19,7 +18,6 @@ const DeviceItem = ({device}) => {
         const brand = deviceContext.brands.find(brand => brand.id === brandId)
         return brand ? brand.name : "unknown brand"
     }
-
 
     return(
         <Col md={3}  className="mt-4" onClick={() => navigate(DEVICE_ROUTE + "/" + device.id)}>
