@@ -52,11 +52,13 @@ export const fetchFromBasket = async () => {
 }
 
 export const deleteDevice = async (deviceId) => {
-    const { data } = await $authHost.delete('api/basket',  { data: { deviceId } })
+    const { data } = await $authHost.delete('api/basket', { data: { deviceId } })
     return data
 }
 
-//rating
-export const fetchRating = async () => {
-    
+//ratings
+export const addRating = async (deviceId, rate) => {
+    const { data } = await $authHost.post('api/rating/'+deviceId, { rate })
+    return data;
 }
+

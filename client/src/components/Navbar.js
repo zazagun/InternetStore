@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 const NavBar = observer(() => {
   const {user} = useContext(Context)
   const navigate = useNavigate()
+  console.log(user)
 
   const logOut = () => {
     user.setUser({})
@@ -26,6 +27,11 @@ const NavBar = observer(() => {
             <Nav.Link href={SHOP_ROUTE}>Shop page</Nav.Link>
             {user.isAuth ? 
               <Nav.Link href={BASKET_ROUTE}>Busket</Nav.Link>
+              :
+              <></>
+            }
+            {user.isAuth ? 
+              <p>{user.name}</p>
               :
               <></>
             }

@@ -6,6 +6,8 @@ export default class DeviceStore{
         this._brands = []
         this._devices = []
         this._basketDevices = []
+        // this._ratings = []
+        // this._averageRating = 0
 
         this._selectedType = {}
         this._selectedBrand = {}
