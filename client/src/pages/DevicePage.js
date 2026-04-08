@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext} from "react";
 import { Container, Col, Image, Row, Card, Button, Dropdown, ButtonGroup } from "react-bootstrap";
 import bigStar from "../assets/big_star.svg";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchOneDevices, addRating } from "../http/deviceAPI";
+import { fetchOneDevices, addRating, getTotalRatesOneDevice } from "../http/deviceAPI";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 import { addDevice } from "../http/deviceAPI"
@@ -18,6 +18,7 @@ const DevicePage = observer(() =>{
     const [successMessage, setSuccessMessage] = useState("")
     const [ratingError, setRatingError] = useState("")
     const [ratingSuccess, setRatingSuccess] = useState("")
+    const [rating, setRating] = useState(0)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -35,10 +36,25 @@ const DevicePage = observer(() =>{
             });
     }, [id, navigate])
 
+
+    useEffect(() => {
+    if (id) {
+        getTotalRatesOneDevice(id)
+            .then((averageRating) => {
+                setRating(averageRating)
+            })
+            .catch((err) => {
+                console.error("Ошибка при получении рейтинга:", err)
+            })
+    }
+    }, [id])
+
+
     const toUpperLetterOfName = () => {
         if (!device.name) return ""
         return device.name.charAt(0).toUpperCase() + device.name.slice(1)
     }
+
 
     const handleAddToBasket = async () => {
         setError("")
@@ -59,7 +75,8 @@ const DevicePage = observer(() =>{
         }
     }
 
-     const handleRateDevice = async (rating) => {
+
+    const handleRateDevice = async (rating) => {
         setRatingError("");
         setRatingSuccess("")
         if (!user.isAuth) {
@@ -70,6 +87,14 @@ const DevicePage = observer(() =>{
             const response = await addRating(id, rating)
             setRatingSuccess("Спасибо за вашу оценку!")
             console.log("Оценка успешно добавлена:", response)
+
+            getTotalRatesOneDevice(id)
+            .then((averageRating) => {
+                setRating(averageRating)
+            })
+            .catch((err) => {
+                console.error("Ошибка при получении рейтинга:", err)
+            })
         } catch (error) {
             console.error("Ошибка при добавлении оценки:", error)
             setRatingError(error.response?.data?.message || "Произошла ошибка при добавлении оценки");
@@ -95,7 +120,7 @@ const DevicePage = observer(() =>{
                             className="d-flex align-items-center justify-content-center"
                             style={{background: `url(${bigStar}) no-repeat center center`, width: 220, height:220, backgroundsize: "cover", fontSize: 64}}
                         >
-                            {device.rating}
+                            {rating.toFixed(1)}
                         </div>
 
                         {user.isAuth ?

@@ -58,7 +58,17 @@ export const deleteDevice = async (deviceId) => {
 
 //ratings
 export const addRating = async (deviceId, rate) => {
-    const { data } = await $authHost.post('api/rating/'+deviceId, { rate })
-    return data;
+    const { data } = await $authHost.post('api/rating/' + deviceId, { rate })
+    return data
+}
+
+export const getTotalRatesOneDevice = async(deviceId) => {
+    const {data} = await $host.get('api/rating/totalRates/'+deviceId)
+    let allRate = []
+    data.map(rate => allRate.push(rate.rate))
+    let result = allRate.reduce((acc, value) =>{
+        return acc + value
+    }, 0)
+    return result / allRate.length
 }
 
