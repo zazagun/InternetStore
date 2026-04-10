@@ -118,7 +118,7 @@ const DevicePage = observer(() =>{
                         <h2 className="d-flex flex-column align-items-center">{toUpperLetterOfName()}</h2>
                         <div
                             className="d-flex align-items-center justify-content-center"
-                            style={{background: `url(${bigStar}) no-repeat center center`, width: 220, height:220, backgroundsize: "cover", fontSize: 64}}
+                            style={{background: `url(${bigStar}) no-repeat center center`, width: 170, height:170, backgroundsize: "cover", fontSize: 64}}
                         >
                             {rating.toFixed(1)}
                         </div>
@@ -147,8 +147,8 @@ const DevicePage = observer(() =>{
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     <div className="d-flex justify-content-center mt-3">
-                                        {ratingError && <p className="text-danger mt-2">{ratingError}</p>}
-                                        {ratingSuccess && <p className="text-success mt-2">{ratingSuccess}</p>}
+                                        {ratingError && <p className="text-danger mt-1">{ratingError}</p>}
+                                        {ratingSuccess && <p className="text-success mt-1">{ratingSuccess}</p>}
                                     </div>
                                     
                                 </div>
@@ -165,7 +165,8 @@ const DevicePage = observer(() =>{
 
                 <Col md={4} className="d-flex justify-content-center">
                     <Card
-                        className="d-flex flex-column align-items-center justify-content-around"
+                        className="d-flex 
+                        flex-column align-items-center justify-content-around"
                         style={{width: 300, height: 300, fontSize: 30}}
                     >
                         <h3>{device.price} Рублей</h3>
@@ -179,7 +180,8 @@ const DevicePage = observer(() =>{
                             Добавить в корзину
                         </Button>
 
-                        <Row className="d-flex justify-content-center mt-1" style={{ fontSize: 16, width: '100%' }}>
+                        <Row className="d-flex justify-content-center mt-1" 
+                            style={{ fontSize: 16, width: '100%' }}>
                             {error && <p className="text-danger mb-0 text-center">{error}</p>}
                             {successMessage && <p className="text-success mb-0 text-center">{successMessage}</p>}
                         </Row>

@@ -9,7 +9,6 @@ import { Context } from "../index";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet"
 
-
 const Auth = observer(() =>{
     const { user } = useContext(Context)
     const navigate = useNavigate()
@@ -33,6 +32,7 @@ const Auth = observer(() =>{
             
         user.setUser(user)
         user.setIsAuth(true)
+        user.setRole(data.role)
         navigate(SHOP_ROUTE)
 
         setEmail("")
@@ -69,7 +69,7 @@ const Auth = observer(() =>{
     return (
         <>
             <Helmet>
-                <title>Authorization</title>
+                <title>{isLogin ? "Authorization" : "Registration"}</title>
             </Helmet>
 
             <Container 

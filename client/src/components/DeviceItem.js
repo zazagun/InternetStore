@@ -1,6 +1,6 @@
 import { Card, Col, Image } from "react-bootstrap";
 import star from "../assets/star_rating.svg"
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { DEVICE_ROUTE } from "../utils/consts";
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../index.js";
@@ -10,7 +10,6 @@ const DeviceItem = ({device}) => {
     const { device: deviceContext } = useContext(Context)
     const navigate = useNavigate()
     const [rating, setRating] = useState(0)
-    const { id } = useParams()
 
     const toUpperLetterOfName = () => {
         if (!device.name) return ""
@@ -24,16 +23,14 @@ const DeviceItem = ({device}) => {
 
 
     useEffect(() => {
-        if (id) {
-            getTotalRatesOneDevice(id)
-                .then((averageRating) => {
-                    setRating(averageRating)
-                })
-                .catch((err) => {
-                    console.error("Ошибка при получении рейтинга:", err)
-                })
-        }
-        }, [id])
+        getTotalRatesOneDevice(device.id)
+            .then((averageRating) => {
+                setRating(averageRating)
+            })
+            .catch((err) => {
+                console.error("Ошибка при получении рейтинга:", err.name)
+            })
+    }, [device.id])
 
     return(
         <Col md={3}  className="mt-4" onClick={() => navigate(DEVICE_ROUTE + "/" + device.id)}>

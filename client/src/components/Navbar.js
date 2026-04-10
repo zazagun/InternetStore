@@ -39,13 +39,16 @@ const NavBar = observer(() => {
 
           {user.isAuth ? 
             <Nav className='ml-auto'>
+              {user.role === "ADMIN"?
               <Button 
                 className="me-2"
                 onClick={() => navigate(ADMIN_ROUTE)}
               >
                 Admin panel
               </Button>
-
+              :
+              <></>
+              }
               <Button 
                 onClick={() => logOut()}
               >

@@ -1,4 +1,4 @@
-const { Rating, Device, User } = require("../models/models");
+const { Rating, Device} = require("../models/models");
 
 class RatingController {
     // Добавление рейтинга устройству
