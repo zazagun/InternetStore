@@ -15,7 +15,9 @@ const App = observer(() => {
   useEffect(() => {
         check()
           .then(data => {
-            user.setUser(true)
+            user.setUserId(data.id)
+            user.setEmail(data.email)
+            user.setRole(data.role)
             user.setIsAuth(true)
         })
         .catch(e => console.log(e.name))

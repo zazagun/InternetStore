@@ -2,7 +2,7 @@ const Router = require('express')
 const router = new Router()
 
 const basketController = require("../controllers/basketController")
-const authCheck = require("../mIddleware/authMiddleware")
+const authCheck = require("../middleware/authMiddleware")
 
 router.post('/', authCheck, basketController.addDevice)
 router.get('/', authCheck, basketController.getAll)

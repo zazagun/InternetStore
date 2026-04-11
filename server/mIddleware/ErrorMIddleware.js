@@ -1,4 +1,3 @@
-const { model } = require('../db')
 const ApiError = require('../error/apiError')
 
 module.exports = function (err, req, res, next){

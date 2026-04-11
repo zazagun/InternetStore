@@ -14,8 +14,7 @@ const NavBar = observer(() => {
   console.log(user)
 
   const logOut = () => {
-    user.setUser({})
-    user.setIsAuth(false)
+    user.logout()
     localStorage.removeItem("token")
   }
 
@@ -31,7 +30,18 @@ const NavBar = observer(() => {
               <></>
             }
             {user.isAuth ? 
-              <p>{user.name}</p>
+              <p style={{
+                display: "flex",
+                textAlign: "center",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: 0,
+                padding: 0,
+                marginLeft: "20px",
+                color: "rgba(0,0,0, 0.65)",
+                fontSize: "17px",
+                fontFamily: "Arial, sans-serif",
+              }}>login: {user.email}</p>
               :
               <></>
             }

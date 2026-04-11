@@ -1,10 +1,11 @@
 const Router = require('express')
 const router = new Router()
 const deviceController = require('../controllers/deviceController')
-const checkRole = require("../mIddleware/ckeckRoleMiddleware")
+const checkRole = require("../middleware/ckeckRoleMiddleware")
+const { createLimiter, generalLimiter } = require("../middleware/rateLimitMiddleware")
 
-router.post('/', checkRole("ADMIN"), deviceController.create)
-router.get('/', deviceController.getAll)
-router.get('/:id', deviceController.getOne)
+router.post('/', createLimiter, checkRole("ADMIN"), deviceController.create)
+router.get('/', generalLimiter, deviceController.getAll)
+router.get('/:id', generalLimiter, deviceController.getOne)
 
 module.exports = router

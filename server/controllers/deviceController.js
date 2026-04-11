@@ -10,6 +10,10 @@ class deviceController{
             let { name, price, brandId, typeId, info } = req.body;
             const { img } = req.files || {}
 
+            if (!name || !price || !brandId || !typeId) {
+                return res.status(400).json({ message: "Некорректные данные" })
+            }
+
             let fileName;
             if (img) {
                 fileName = uuid.v4() + path.extname(img.name)

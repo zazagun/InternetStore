@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { observer } from 'mobx-react-lite';
 import { Context } from "../index.js";
 import { Card, Row } from "react-bootstrap";
-
+    
 const BrandBar = observer(() => {
     const { device } = useContext(Context)
     const [isClearActive, setIsClearActive] = useState(false)
@@ -53,7 +53,7 @@ const BrandBar = observer(() => {
                     color: isClearActive ? "white" : ""
                 }}
             >
-                Сlear the filters
+                Clear the filters 
             </Card>
         </Row>
     );

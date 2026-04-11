@@ -17,7 +17,7 @@ class basketController {
 
         const existingBasketDevice = await BasketDevice.findOne({
             where: { basketId: basket.id, deviceId }
-        });
+        })
 
         if (existingBasketDevice) {
             return res.status(400).json({message: "device in the basket"})

@@ -11,6 +11,9 @@ class RatingController {
             if (rate < 0 || rate > 5) {
                 return res.status(400).json({ message: "Рейтинг должен быть от 0 до 5" });
             }
+            if (!deviceId || !userId) {
+                return res.status(400).json({ message: "Некорректные данные" });
+            }
 
             const existingRating = await Rating.findOne({
                 where: {
