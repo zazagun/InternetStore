@@ -146,7 +146,9 @@ const DevicePage = observer(() =>{
                                             </ButtonGroup>
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                    <div className="d-flex justify-content-center mt-3">
+                                    <div className="d-flex justify-content-center mt-3" 
+                                        style={{ minHeight: "50px" }}
+                                    >
                                         {ratingError && <p className="text-danger mt-1">{ratingError}</p>}
                                         {ratingSuccess && <p className="text-success mt-1">{ratingSuccess}</p>}
                                     </div>
