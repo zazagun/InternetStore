@@ -18,7 +18,7 @@ const authLimiter = rateLimit({
 })
 
 const createLimiter = rateLimit({
-    windowMs: 60 * 60 * 1000, 
+    windowMs: 900000, 
     max: 30, 
     message: 'Слишком много попыток создания. Попробуйте позже',
     standardHeaders: true,
