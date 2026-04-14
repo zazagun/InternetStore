@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext} from "react";
 import { Container, Col, Image, Row, Card, Button, Dropdown, ButtonGroup } from "react-bootstrap";
 import bigStar from "../assets/big_star.svg";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchOneDevices, addRating, getTotalRatesOneDevice } from "../http/deviceAPI";
+import { fetchOneDevices, addRating, getTotalRatesOneDevice, getTotalAppreciated } from "../http/deviceAPI";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 import { addDevice } from "../http/deviceAPI"
@@ -20,6 +20,7 @@ const DevicePage = observer(() =>{
     const [ratingSuccess, setRatingSuccess] = useState("")
     const [rating, setRating] = useState(0)
     const navigate = useNavigate()
+    const [appreciated, setAppreciated] = useState(0)
 
     useEffect(() => {
         fetchOneDevices(id)
@@ -48,6 +49,18 @@ const DevicePage = observer(() =>{
             })
     }
     }, [id])
+
+    useEffect(()=>{
+        if(id){
+            getTotalAppreciated(id)
+                .then((appreciatedRating) => {
+                    setAppreciated(appreciatedRating)
+                })
+                .catch((err) => {
+                    console.error("Ошибка при получения кол-ва оценивших пользователей", err)
+                })
+        }
+    }, [id, appreciated])
 
 
     const toUpperLetterOfName = () => {
@@ -101,6 +114,7 @@ const DevicePage = observer(() =>{
         }
     }
 
+
     return (
         <>
         <Helmet>
@@ -118,16 +132,18 @@ const DevicePage = observer(() =>{
                         <h2 className="d-flex flex-column align-items-center">{toUpperLetterOfName()}</h2>
                         <div
                             className="d-flex align-items-center justify-content-center"
-                            style={{background: `url(${bigStar}) no-repeat center center`, width: 170, height:170, backgroundsize: "cover", fontSize: 64}}
+                            style={{background: `url(${bigStar}) no-repeat center center`, width: 170, height:170, backgroundsize: "cover", fontSize: 64, flexDirection: "column"}}
                         >
                             {rating.toFixed(1)}
                         </div>
+                            <p className="text-center" style={{fontSize: 15}}>Оценок: {appreciated}</p>
+
 
                         {user.isAuth ?
                                 <div className="mt-2">
                                     <Dropdown drop="down" className="d-flex justify-content-center">
                                         <Dropdown.Toggle variant="light" id="dropdown-rating">
-                                            Оценить товар
+                                            Rate the product
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>

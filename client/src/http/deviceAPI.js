@@ -67,3 +67,7 @@ export const getTotalRatesOneDevice = async(deviceId) => {
     return data.averageRating
 }
 
+export const getTotalAppreciated = async(deviceId) => {
+    const {data} = await $host.get('api/rating/totalRates/'+deviceId)
+    return data.appreciated
+}

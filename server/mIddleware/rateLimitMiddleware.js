@@ -2,7 +2,7 @@ const rateLimit = require('express-rate-limit');
 
 const generalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, 
-    max: 100, 
+    max: 300, 
     message: 'Слишком много запросов с этого IP адреса, попробуйте позже',
     standardHeaders: true, 
     legacyHeaders: false, 

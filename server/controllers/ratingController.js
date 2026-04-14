@@ -18,6 +18,16 @@ class RatingController {
         return totalRate / ratings.length
     }
 
+    async calculateAppreciated(deviceId){
+        const ratings = await Rating.findAll({
+            where: {deviceId: deviceId }
+        })
+
+        if (ratings.length === 0) return 0
+
+        return ratings.length
+    }
+
     invalidateRatingCache(deviceId) {
         this.ratingCache.delete(deviceId)
     }
@@ -78,10 +88,13 @@ class RatingController {
                 return res.status(400).json({ message: "ID устройства не указан" })
             }
 
+            const Appreciated = await this.calculateAppreciated(idDevice)
+
             // проверка кэша
             if (this.ratingCache.has(idDevice)) {
                 return res.json({
                     averageRating: this.ratingCache.get(idDevice),
+                    appreciated: Appreciated,
                     fromCache: true
                 })
             }
@@ -91,7 +104,8 @@ class RatingController {
 
             return res.json({
                 averageRating: averageRating,
-                fromCache: false
+                appreciated: Appreciated,
+                fromCache: false,
             })
         } catch (error) {
             console.error("Ошибка при получении рейтинга:", error)
